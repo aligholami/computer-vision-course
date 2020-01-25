@@ -9,7 +9,7 @@ function [img1] = myImageFilter(img0, h)
     img0_padded = padarray(img0, [pad_value, pad_value], 'replicate', 'pre');
     img0_padded = padarray(img0_padded, [pad_value, pad_value], 'replicate', 'post');
     [num_padded_img_rows, num_padded_img_cols] = size(img0_padded);
-    returning_img = zeros(num_padded_img_rows, num_padded_img_cols)
+    returning_img = zeros(num_padded_img_rows, num_padded_img_cols);
     
     for i=1:num_padded_img_rows - num_filter_rows
         for j=1:num_padded_img_cols - num_filter_cols
