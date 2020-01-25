@@ -3,7 +3,10 @@ function [img1] = myEdgeFilter(img0, sigma)
     kernel_size = 2 * ceil(3 * sigma) + 1
     gaussian_kernel = fspecial('gaussian', [kernel_size kernel_size], sigma);
     img_smoothed = myImageFilter(img0, gaussian_kernel);
-    
+
+    % To be tested with the actual conv2 by Matlab
+    % img_smoothed = conv2(img0, gaussian_kernel);
+
     h_sobel_kernel = [1, 0, -1; 2, 0, -2; 1, 0, -1];
     v_sobel_kernel = [1, 2, 1; 0, 0, 0; -1, -2, -1];
 
