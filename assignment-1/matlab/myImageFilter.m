@@ -7,7 +7,9 @@ function [img1] = myImageFilter(img0, h)
 
     % Pad the image (post and pre)
     img0_padded = padarray(img0, [pad_value, pad_value], 'replicate', 'pre');
+    disp(size(img0_padded))
     img0_padded = padarray(img0_padded, [pad_value, pad_value], 'replicate', 'post');
+    disp(size(img0_padded))
     returning_img = img0_padded;
     
     % Filter amplitude
@@ -29,5 +31,5 @@ function [img1] = myImageFilter(img0, h)
 
     % Unpad the image
     [ret_img_num_rows, ret_img_num_cols] = size(returning_img);
-    img1 = returning_img(pad_value:ret_img_num_rows - 1, pad_value:ret_img_num_cols - 1);
+    img1 = returning_img(pad_value:ret_img_num_rows - pad_value - 1, pad_value:ret_img_num_cols - pad_value - 1);
 end
