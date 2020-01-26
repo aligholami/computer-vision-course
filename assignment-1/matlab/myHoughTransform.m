@@ -1,34 +1,26 @@
 function [H, rhoScale, thetaScale] = myHoughTransform(Im, threshold, rhoRes, thetaRes)
-
-    % Find rhos boundary based on x_max and y_max of the image
+    Im(Im < threshold) = 0
     [num_rows, num_cols] = size(Im);
-    % Set up the accumulator
-    theta_max = 2 * pi;
-    rho_max = floor(sqrt(num_cols^2 + num_rows^2)) - 1;
-    theta_range = [0:thetaRes:theta_max];
-    rho_range = [0:rhoRes:rho_max];
-    H = zeros(length(rho_range), length(theta_range));
-
-    % Loop through Im
-    for row=1:num_rows
-        for col=1:num_cols
-            % Suppress bullshit gradients
-            if Im(row, col) > threshold
-                x = row - 1;
-                y = col - 1;
-                for theta=theta_range
-                    rho = round(x * cos(theta) + y * sin(theta));
-                    if rho > 0 & rho < length(rho_range)
-                        rho_idx = rho;
-                        theta_idx = floor(theta) + 1;
-                        H(rho_idx, theta_idx) = H(rho_idx, theta_idx) + 1;
-                    end
+    theta_max = pi;
+    rho_max = ceil(sqrt(num_cols^2 + num_rows^2));
+    thetaScale = 0:thetaRes:theta_max;
+    rhoScale = -rho_max:rhoRes:rho_max;
+    H = zeros(2*rho_max/rhoRes+1, pi/thetaRes+1);
+    cos_theta = cos(thetaScale)
+    sin_theta = sin(thetaScale)
+           
+    for i=1:num_rows
+        for j=1:num_cols
+            if Im(i, j) > 0
+                y = i
+                x = j
+                for theta_idx=1:size(thetaScale, 2)
+                    rho = x * cos_theta(theta_idx) + y * sin_theta(theta_idx);
+                    rho_idx = floor((rho + rho_max) / rhoRes) + 1;
+                    H(rho_idx, theta_idx) = H(rho_idx, theta_idx) + 1;
                 end
             end
         end
     end
-    rhoScale = 0
-    thetaScale = 0
+    H = H / 255
 end
-        
-        
