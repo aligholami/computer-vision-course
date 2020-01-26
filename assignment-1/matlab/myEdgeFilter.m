@@ -13,13 +13,12 @@ function [res] = myEdgeFilter(img0, sigma)
     g_x = myImageFilter(img_smoothed, h_sobel_kernel);
     g_y = myImageFilter(img_smoothed, v_sobel_kernel);
     
-    res = g_x
-    g_directions = atan2(g_y, g_x)
+    g_directions = atan2(g_y, g_x);
 
-    [num_g_rows, num_g_cols] = size(g_directions)
-    discrete_directions = [0, pi/4, pi/2, 3*pi/4, pi, -3*pi/4. -pi/2, -pi/4]
-    neighbors_offset_x = [+1, +1, 0, -1, -1, -1, 0, 1]
-    neighbors_offset_y = [0, -1, -1, -1, 0, +1, +1, 1]
+    [num_g_rows, num_g_cols] = size(g_directions);
+    discrete_directions = [0, pi/4, pi/2, 3*pi/4, pi, -3*pi/4. -pi/2, -pi/4];
+    neighbors_offset_x = [+1, +1, 0, -1, -1, -1, 0, 1];
+    neighbors_offset_y = [0, -1, -1, -1, 0, +1, +1, 1];
     
     for i=1:num_g_rows
         for j=1:num_g_cols
@@ -47,10 +46,13 @@ function [res] = myEdgeFilter(img0, sigma)
                     if neighbor_pixel > g_x(i, j)
                         g_x(i, j) = 0;
                     end
+                    if neighbor_pixel > g_y(i, j)
+                        g_y(i, j) = 0;
+                    end
                 end
             end
         end
     end
 
-    % res = g_x
+    res = sqrt(g_x.^2 + g_y.^2);
 end
