@@ -1,7 +1,7 @@
 clear;
 
 datadir     = '../data';    %the directory containing the images
-resultsdir  = '../results'; %the directory for dumping results
+resultsdir  = '../ec'; %the directory for dumping results
 
 %parameters
 sigma     = 2;
@@ -45,6 +45,6 @@ for i = 1:numel(imglist)
        img2 = drawLine(img2, lines(j).point1, lines(j).point2); 
     end     
     imwrite(img2, fname);
-
+    
 end
     
