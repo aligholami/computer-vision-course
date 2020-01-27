@@ -1,7 +1,7 @@
 function [rhos, thetas] = myHoughLines(H, nLines)
 
     [num_rows, num_cols] = size(H);
-    threshold = 0.4 * max(H(:))
+    threshold = 0.5 * max(H(:))
     receptive_field_x_axis = floor(size(H, 1) / 100.0) * 2 + 1
     receptive_field_y_axis = floor(size(H, 2) / 100.0) * 2 + 1
     

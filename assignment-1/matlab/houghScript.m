@@ -45,5 +45,6 @@ for i = 1:numel(imglist)
        img2 = drawLine(img2, lines(j).point1, lines(j).point2); 
     end     
     imwrite(img2, fname);
+
 end
     
