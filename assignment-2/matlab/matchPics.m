@@ -14,7 +14,7 @@ im2_corners = detectFASTFeatures(im2_gray);
 [im2_desc, im2_locs] = computeBrief(im2_gray, im2_corners.selectStrongest(100).Location);
 
 % %% Match features using the descriptors
-index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10);
+index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio', 0.9);
 
 locs1 = im1_locs(index_pairs(:, 1), :);
 locs2 = im2_locs(index_pairs(:, 2), :);
