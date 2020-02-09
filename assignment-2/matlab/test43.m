@@ -24,14 +24,12 @@ im2_corners = detectFASTFeatures(im2_gray);
 [im1_desc, im1_locs] = computeBrief(im1_gray, im1_corners.selectStrongest(300).Location);
 [im2_desc, im2_locs] = computeBrief(im2_gray, im2_corners.selectStrongest(300).Location);
 
-index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio', 0.72);
+index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio', 0.7);
 
 locs1 = im1_locs(index_pairs(:, 1), :);
 locs2 = im2_locs(index_pairs(:, 2), :);
-locs1_homo = [locs1, ones(size(locs1, 1), 1)]';   % [3, N]
-locs2_homo = [locs2, ones(size(locs2, 1), 1)]';   % [3, N]
 
-H = computeH(locs1, locs2)
+H = computeH_norm(locs1, locs2)
 
 num_points = size(locs1, 1);
 transformed_locs1 = []
