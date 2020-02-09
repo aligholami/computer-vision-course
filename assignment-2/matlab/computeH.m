@@ -12,12 +12,5 @@ end
 [U, S, V] = svd(A);
 h = V(:, 9);
 H2to1 = reshape(h, [3, 3])';
-% h = V(:, 9);
-% H2to1 = reshape(h, [3, 3])';
 
-% [V, D] = eig(A'*A);
-% e = eig(A'*A);
-% [val, idx] = max(e);
-% h = D(idx, :)
-% H2to1 = reshape(h, [3, 3])';
 end
