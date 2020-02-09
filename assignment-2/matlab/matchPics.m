@@ -18,7 +18,7 @@ index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio'
 
 locs1 = im1_locs(index_pairs(:, 1), :);
 locs2 = im2_locs(index_pairs(:, 2), :);
-
+c
 figure;
 showMatchedFeatures(I1, I2, locs1, locs2, 'montage');
 
