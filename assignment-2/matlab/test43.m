@@ -29,7 +29,7 @@ index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio'
 locs1 = im1_locs(index_pairs(:, 1), :);
 locs2 = im2_locs(index_pairs(:, 2), :);
 
-H = computeH_norm(locs1, locs2)
+[H, inliers] = computeH_ransac(locs1, locs2)
 
 num_points = size(locs1, 1);
 transformed_locs1 = []
