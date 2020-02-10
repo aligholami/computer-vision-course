@@ -1,7 +1,7 @@
 function [ bestH2to1, inliers] = computeH_ransac(locs1, locs2)
-N = 2000;
-dis = 0.5;
-Threshold = 100000;
+N = 4000;
+dis = 0.6;
+Threshold = 1000000;
 locs1 = locs1';
 locs2 = locs2';
 len = size(locs1, 2);

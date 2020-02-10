@@ -17,7 +17,7 @@ hp_img = imread('./data/hp_cover.jpg');
 scaled_hp_img = imresize(hp_img, [size(cv_img,1) size(cv_img,2)]);
 
 %% Display warped image.
-imshow(warpH(scaled_hp_img, inv(bestH2to1), size(desk_img)));
+% imshow(warpH(scaled_hp_img, inv(bestH2to1), size(desk_img)));
 
 %% Display composite image
 imshow(compositeH(inv(bestH2to1), scaled_hp_img, desk_img));
