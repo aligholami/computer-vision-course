@@ -21,27 +21,31 @@ im1_corners = detectFASTFeatures(im1_gray);
 im2_corners = detectFASTFeatures(im2_gray);
 
 %% Obtain descriptors for the computed feature locations
-[im1_desc, im1_locs] = computeBrief(im1_gray, im1_corners.selectStrongest(300).Location);
-[im2_desc, im2_locs] = computeBrief(im2_gray, im2_corners.selectStrongest(300).Location);
+[im1_desc, im1_locs] = computeBrief(im1_gray, im1_corners.selectStrongest(500).Location);
+[im2_desc, im2_locs] = computeBrief(im2_gray, im2_corners.selectStrongest(500).Location);
 
 index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio', 0.7);
 
 locs1 = im1_locs(index_pairs(:, 1), :);
 locs2 = im2_locs(index_pairs(:, 2), :);
 
-[H, inliers] = computeH_ransac(locs1, locs2)
+% [H, inliers] = computeH_norm(locs1, locs2)
+H = computeH_ransac(locs1, locs2);
+num_points = 20
+transformed_locs1 = [];
 
-num_points = size(locs1, 1);
-transformed_locs1 = []
+random_locs_x = randi(i1_cols, num_points, 1);
+random_locs_y = randi(i1_rows, num_points, 1);
+random_locs = cat(2, random_locs_x, random_locs_y);
 for i=1:num_points
-    homo_point = [locs1(i, 1); locs1(i, 2); 1];
+    homo_point = [random_locs(i, 1); random_locs(i, 2); 1];
     transformed_homo_point = H * homo_point;
     transformed_point = transformed_homo_point(1:2) ./ transformed_homo_point(3);
     transformed_locs1 = [transformed_locs1; transformed_point'];
 end
 
 figure;
-showMatchedFeatures(I1, I2, locs1, transformed_locs1, 'montage');
+showMatchedFeatures(I1, I2, random_locs, transformed_locs1, 'montage');
 
 end
 
