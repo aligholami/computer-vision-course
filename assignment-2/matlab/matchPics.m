@@ -1,5 +1,6 @@
 function [ locs1, locs2] = matchPics( I1, I2 )
 %MATCHPICS Extract features, obtain their descriptors, and match them!
+warning off;
 
 %% Convert images to grayscale, if necessary
 [i1_rows, i1_cols, i1_channels] = size(I1);
@@ -22,8 +23,8 @@ im1_corners = detectFASTFeatures(im1_gray);
 im2_corners = detectFASTFeatures(im2_gray);
 
 %% Obtain descriptors for the computed feature locations
-[im1_desc, im1_locs] = computeBrief(im1_gray, im1_corners.selectStrongest(300).Location);
-[im2_desc, im2_locs] = computeBrief(im2_gray, im2_corners.selectStrongest(300).Location);
+[im1_desc, im1_locs] = computeBrief(im1_gray, im1_corners.selectStrongest(1000).Location);
+[im2_desc, im2_locs] = computeBrief(im2_gray, im2_corners.selectStrongest(1000).Location);
 
 %% Match features using the descriptors
 index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio', 0.72);
