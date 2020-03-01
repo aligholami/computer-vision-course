@@ -27,7 +27,7 @@ function [pts2] = epipolarCorrespondence(im1, im2, F, pts1)
         search_point = round(cross(line_scaled, l2));
         
         % Search parameters
-        window_size = 5;
+        window_size = 2;
         kernel_size = 2 * window_size + 1;
         im1_patch = double(im1((pts1(i, 2) - window_size):(pts1(i, 2) + window_size), (pts1(i, 1) - window_size):(pts1(i, 1) + window_size), :));
         min_disimilarity = 3000;
