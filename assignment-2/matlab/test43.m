@@ -16,6 +16,8 @@ else
     im2_gray = I2;
 end
 
+rand('seed', 1);
+
 %% Detect features in both images
 im1_corners = detectFASTFeatures(im1_gray);
 im2_corners = detectFASTFeatures(im2_gray);
@@ -29,8 +31,8 @@ index_pairs = matchFeatures(im1_desc, im2_desc, 'MatchThreshold', 10, 'MaxRatio'
 locs1 = im1_locs(index_pairs(:, 1), :);
 locs2 = im2_locs(index_pairs(:, 2), :);
 
-% [H, inliers] = computeH_norm(locs1, locs2)
-H = computeH_ransac(locs1, locs2);
+[H, inliers] = computeH_ransac(locs1, locs2)
+% H = computeH(locs1, locs2);
 num_points = 20
 transformed_locs1 = [];
 

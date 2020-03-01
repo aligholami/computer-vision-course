@@ -27,8 +27,10 @@ for i = 0:36
     histo_y = [histo_y num_matches];
 end
 
-bar(histo_x, histo_y)
 
+%bar(histo_x, histo_y)
+%xlabel('Orientation (degree)')
+%ylabel('BRIEF Matches Count')
 
 %% Compute the features and descriptors
 cv_cover_corners = detectSURFFeatures(cv_cover_gray);
@@ -54,5 +56,7 @@ for i = 0:36
 end
 
 bar(histo_x, histo_y);
+xlabel('Orientation (degree)')
+ylabel('SURF Matches Count')
 
 %% Display histogram
