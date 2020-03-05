@@ -1,6 +1,13 @@
 function P = estimate_pose(x, X)
-% ESTIMATE_POSE computes the pose matrix (camera matrix) P given 2D and 3D
-% points.
-%   Args:
-%       x: 2D points with shape [2, N]
-%       X: 3D points with shape [3, N]
+    A = [];
+    for i=1:size(X, 2)
+        xdash = x(1, i);
+        ydash = x(2, i);
+        Ai = [X(:, i)', 1, 0, 0, 0, 0 -xdash*([X(:, i)', 1]);
+              0, 0, 0, 0, X(:, i)', 1, -ydash*([X(:, i)', 1])];
+        A = [A; Ai];
+    end
+    
+    [U, S, V] =  svd(A);
+    p = V(:, end);
+    P = reshape(p, [4, 3])';
