@@ -1,13 +1,13 @@
 clear all ;
 % Load image and paramters
-im1 = imread('./data/im1.png');
-im2 = imread('./data/im2.png');
+im1 = imread('../data/im1.png');
+im2 = imread('../data/im2.png');
 im1 = rgb2gray(im1);
 im2 = rgb2gray(im2);
 
-load('./data/intrinsics.mat', 'K1', 'K2');
+load('../data/intrinsics.mat', 'K1', 'K2');
 
-load('./data/extrinsics.mat', 'R1', 'R2', 't1', 't2');
+load('../data/extrinsics.mat', 'R1', 'R2', 't1', 't2');
 
 % Rectify images
 [M1, M2, K1n, K2n, R1n, R2n, t1n, t2n] = rectify_pair(K1, K2, R1, R2, t1, t2);
@@ -26,7 +26,7 @@ rectImg(:,1:nC) = rectIL ;
 rectImg(:,nC+1:end) = rectIR ;
 
 % load gt info.
-load('./data/someCorresp.mat', 'pts1', 'pts2');
+load('../data/someCorresp.mat', 'pts1', 'pts2');
 gtL = pts1(1:20:end, :)';
 gtR = pts2(1:20:end, :)';
 

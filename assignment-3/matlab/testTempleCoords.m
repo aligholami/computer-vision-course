@@ -1,11 +1,11 @@
-im1=imread('./data/im1.png');
-im2=imread('./data/im2.png');
-load('./data/someCorresp.mat')
+im1=imread('../data/im1.png');
+im2=imread('../data/im2.png');
+load('../data/someCorresp.mat')
 
 F = eightpoint(pts1, pts2, 640);
-load('./data/templeCoords.mat')
+load('../data/templeCoords.mat')
 pts2 = epipolarCorrespondence(im1, im2, F, pts1);
-load('./data/intrinsics.mat')
+load('../data/intrinsics.mat')
 E = essentialMatrix(F, K1, K2);
 P1 = K1 * [1 0 0 0; 0 1 0 0; 0 0 1 0];
 
@@ -33,4 +33,4 @@ P2 = K2 * m2s(:, :, find(cnt==max(cnt)));
 R2 = P2(1:3, 1:3);
 t2 = P2(:, end);
 
-save('./data/extrinsics.mat', 'R1', 'R2', 't1', 't2')
+save('../data/extrinsics.mat', 'R1', 'R2', 't1', 't2')
